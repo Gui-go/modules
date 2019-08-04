@@ -6,15 +6,20 @@ library(Quandl)
 library(DT)
 library(moments)
 library(tseries)
+library(shinydashboard)
+library(shinydashboardPlus)
 
-source("modules/button_mod.R", encoding = "utf8")
+source("modules/ap_mod.R", encoding = "utf8")
 source("modules/fc_mod.R", encoding = "utf8")
 source("modules/islm_mod.R", encoding = "utf8")
+source("modules/foa_fda_is_gif_mod.R", encoding = "utf8")
 source("modules/obs_mod.R", encoding = "utf8")
 
 
+
+
 ui <- shinyUI(
-  navbarPage(title = "MACROdemo",
+  navbarPage(title = "MACROdemo  0.51",
     tabPanel(
       "Apresentação",
       ap_UI("ap")),
@@ -32,7 +37,9 @@ ui <- shinyUI(
      ),
     navbarMenu(
       "Animações",
-      tabPanel("Oferta = Demanda"),
+      tabPanel(
+        "f(OA) = f(DA) >>> IS",
+        foa_fda_is_UI("foa_fda_is")),
       tabPanel("Mercado de trabalho")
     ),
     tabPanel(
@@ -44,11 +51,15 @@ ui <- shinyUI(
   )
 )
 
+
+
+
+
+
 server <- function(input, output, session) {
-  callModule(button, "first")
-  callModule(button, "second")
   callModule(fc_serv, "funcao_consumo")
   callModule(islm_serv, "is_lm")
+  callModule(foa_fda_is_serv, "foa_fda_is")
   callModule(obs_serv, "observatorio")
 }
 
