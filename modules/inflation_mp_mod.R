@@ -97,11 +97,11 @@ g1 <- ggplot(dadosA)+
   coord_cartesian(ylim = c(0, 1000), expand = FALSE, xlim = c(0, 1000))+
   theme_minimal()+
   labs(title = "Inflation is always and everywhere\na monetary phenomena",
-       y = "Juros, i, r",
-       x = "Reda, Y")+
-  theme(plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-        axis.title = element_text(size = 11, face = "bold"),
-        plot.caption = element_text(size = 9, face = "bold"),
+       y = "Juros, i",
+       x = "Renda, Y")+
+  theme(plot.title = element_text(size = 21, face = "bold", hjust = 0.5),
+        axis.title = element_text(size = 19, face = "bold"),
+        plot.caption = element_text(size = 13, face = "bold"),
         axis.text = element_blank(),
         axis.ticks = element_blank())+
   transition_reveal(frames)
@@ -166,11 +166,11 @@ g2 <- ggplot(dadosB)+
   coord_cartesian(ylim = c(0, 1000), expand = FALSE, xlim = c(0, 1000))+
   theme_minimal()+
   labs(y = "Nível de preços, P",
-       x = "Reda, Y",
+       x = "Renda, Y",
        caption = "Econometria \nIndependente")+
-  theme(plot.title = element_text(size = 15, face = "bold", hjust = 0.5),
-        axis.title = element_text(size = 11, face = "bold"),
-        plot.caption = element_text(size = 9, face = "bold"),
+  theme(plot.title = element_text(size = 21, face = "bold", hjust = 0.5),
+        axis.title = element_text(size = 19, face = "bold"),
+        plot.caption = element_text(size = 13, face = "bold"),
         axis.text = element_blank(),
         axis.ticks = element_blank())+
   transition_reveal(frames)

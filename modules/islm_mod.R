@@ -22,7 +22,7 @@ islm_UI <- function(id) {
                                br(),
                                numericInput(ns("ISLMl0_1"), "Precaução", min = 0, max = 1, step = 0.05, value = 0.9),
                                numericInput(ns("ISLMl1_1"), "Sensibilidade da taxa de juros a demanda por moeda", min = 0, max = 1, step = 0.1, value = 0.3),
-                               numericInput(ns("ISLMms0p_1"), "oferta de moeda", min = 0, max = 1000, step = 50, value = 30),
+                               numericInput(ns("ISLMms0p_1"), "oferta de moeda", min = 0, max = 6000, step = 50, value = 3000),
                                numericInput(ns("ISLMvt_1"), "velocity", min = 0, max = 1000, step = 0.1, value = 0.1))),
                tabPanel("IS_2",
                         column(12,
@@ -41,7 +41,7 @@ islm_UI <- function(id) {
                                br(),
                                numericInput(ns("ISLMl0_2"), "Precaução", min = 0, max = 1, step = 0.05, value = 0.9),
                                numericInput(ns("ISLMl1_2"), "Sensibilidade da taxa de juros a demanda por moeda", min = 0, max = 1, step = 0.1, value = 0.3),
-                               numericInput(ns("ISLMms0p_2"), "oferta de moeda", min = 0, max = 1000, step = 50, value = 30),
+                               numericInput(ns("ISLMms0p_2"), "oferta de moeda", min = 0, max = 10000, step = 50, value = 3000),
                                numericInput(ns("ISLMvt_2"), "velocity", min = 0, max = 1000, step = 0.1, value = 0.1)))
              )),
       column(10,
@@ -90,10 +90,11 @@ islm_serv <- function(input, output, session) {
     
     for (i in seq_along(y)) {
       # ISii_1[i] <- ((input$ISLMc0_1 - (input$ISLMc1_1*input$ISLMT0_1) + input$ISLMI0_1 + input$ISLMG0_1) / input$ISLMa_1)-((1-input$ISLMc1_1*(1-input$ISLMt_1))/input$ISLMa_1)*y[i]
-      ISii_1[i] <- (((input$ISLMc0_1 + input$ISLMI0_1 + input$ISLMG0_1) - (1-input$ISLMc1_1*(1-input$ISLMt_1))*y[i])/input$ISLMa_1)
+      ISii_1[i] <- c(((input$ISLMc0_1 + input$ISLMI0_1 + input$ISLMG0_1) - (1-input$ISLMc1_1*(1-input$ISLMt_1))*y[i])/input$ISLMa_1)
     }
     for (i in seq_along(y)) {
-      LMii_1[i] <- c((1/input$ISLMl1_1)*(input$ISLMl0_1-input$ISLMms0p_1)+(1/input$ISLMl1_1)*(1/input$ISLMvt_1)*y[i])
+      # LMii_1[i] <- c((1/input$ISLMl1_1)*(input$ISLMl0_1-input$ISLMms0p_1)+(1/input$ISLMl1_1)*(1/input$ISLMvt_1)*y[i])
+      LMii_1[i] <- c(((1/input$ISLMvt_1)*y[i] - input$ISLMms0p_1) / input$ISLMl1_1)
     }
     
     for (i in seq_along(y)) {

@@ -43,7 +43,8 @@ ui <- shinyUI(
       tabPanel(
         "f(OA) = f(DA) >>> IS",
         foa_fda_is_UI("foa_fda_is")),
-      tabPanel("Mercado de trabalho")
+      tabPanel("Mercado de trabalho"),
+      tabPanel("Inflation is always and everywhere amonetary phenomena")
     ),
     tabPanel(
       "Observatório",
