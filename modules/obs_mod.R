@@ -43,12 +43,9 @@ obs_UI <- function(id) {
                ns("PIFOB")
                ),
              br(),
-             column(7, h5("Máximo", "Limite Superior", "3º Quartil", "Mediana", "Média", "1* Quartil", "Limite Inferior", "Mínimo", "Variância", "Desvio Padrão", "Amplitude", "Amplitude interquartil", "Assimetria", "Curtose", "P-valor de Bera-Jarque", "P-valor de Shapiro-Wilk", "P-valor de Dickey-Fuller")),
-             column(1),
-             column(4,
-                    h5(uiOutput(
-                      ns("STATS_MEDIA_OB")
-                    )))
+             tableOutput(
+               ns("SMALL_TABLE")
+             )
       ),
       column(10,
              tabsetPanel(
@@ -199,33 +196,28 @@ obs_serv <- function(input, output, session) {
     options = list(pageLength = 12)
   )
   
-  # output$STATS_MEDIA_OB <- renderText({
-  #   round(mean(as.numeric(SERIEOBraw()[input$SLDOB[1]:input$SLDOB[2],2])), 3)
-  # })
-  # 
-  
-  output$STATS_MEDIA_OB <- renderUI({
+  output$SMALL_TABLE <- renderTable({
     NN <- SERIEOBraw()[input$SLDOB[1]:input$SLDOB[2],2]
-    mylist <- c(round(max(NN), 3),
-                round(quantile(NN)[[4]]+1.5*(quantile(NN)[[4]]-quantile(NN)[[2]]), 3),
-                round(quantile(NN)[[4]],3), 
-                round(median(NN),3), 
-                round(mean(NN),3), 
-                round(quantile(NN)[[2]],3), 
-                round(quantile(NN)[[2]]-1.5*(quantile(NN)[[4]]-quantile(NN)[[2]]),3), 
-                round(min(NN),3),
-                round(var(NN),3), 
-                round(sd(NN),3), 
-                round(max(NN)-min(NN),3), 
-                round(quantile(NN)[[4]]-quantile(NN)[[2]],3), 
-                round(skewness(NN),3), round(kurtosis(NN),3), 
-                round(jarque.test(as.vector(NN))[[2]], 3), 
-                round(shapiro.test(NN)[[2]], 3) , 
-                round(adf.test(NN, k = 12)[[4]], 3))
-    HTML(paste(mylist, sep = "", collapse = '<br/>'))
+    st <- tibble(" " = c("Máximo", "Limite Superior", "3º Quartil", "Mediana", "Média", "1* Quartil", "Limite Inferior", "Mínimo", "Variância", "Desvio Padrão", "Amplitude",  "Amplitude interquartil", "Assimetria", "Curtose", "P-valor de Bera-Jarque", "P-valor de Shapiro-Wilk", "P-valor de Dickey-Fuller"),
+                     "  " = c(round(max(NN), 3),
+                       round(quantile(NN)[[4]]+1.5*(quantile(NN)[[4]]-quantile(NN)[[2]]), 3),
+                       round(quantile(NN)[[4]],3), 
+                       round(median(NN),3), 
+                       round(mean(NN),3), 
+                       round(quantile(NN)[[2]],3), 
+                       round(quantile(NN)[[2]]-1.5*(quantile(NN)[[4]]-quantile(NN)[[2]]),3),
+                       round(min(NN),3),
+                       round(var(NN),3), 
+                       round(sd(NN),3), 
+                       round(max(NN)-min(NN),3), 
+                       round(quantile(NN)[[4]]-quantile(NN)[[2]],3),
+                       round(skewness(NN),3), 
+                       round(kurtosis(NN),3), 
+                       round(jarque.test(as.vector(NN))[[2]], 3),
+                       round(shapiro.test(NN)[[2]], 3),
+                       round(adf.test(NN, k = 12)[[4]], 3)))
+    st
   })
-  
-  
   
 }
 

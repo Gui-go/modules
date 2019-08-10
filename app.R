@@ -6,6 +6,7 @@ library(Quandl)
 library(DT)
 library(moments)
 library(tseries)
+library(forecast)
 library(shinydashboard)
 library(shinydashboardPlus)
 
@@ -13,7 +14,9 @@ source("modules/ap_mod.R", encoding = "utf8")
 source("modules/fc_mod.R", encoding = "utf8")
 source("modules/islm_mod.R", encoding = "utf8")
 source("modules/foa_fda_is_gif_mod.R", encoding = "utf8")
+source("modules/quiz_mod.R", encoding = "utf8")
 source("modules/obs_mod.R", encoding = "utf8")
+source("modules/sobre_mod.R", encoding = "utf8")
 
 
 
@@ -46,8 +49,12 @@ ui <- shinyUI(
       "Observatório",
       obs_UI("observatorio")
       ),
-    tabPanel("Quiz"),
-    tabPanel("Sobre")
+    tabPanel(
+      "Quiz",
+      quiz_UI("quiz")),
+    tabPanel(
+      "Sobre",
+      sobre_UI("sobre"))
   )
 )
 
@@ -60,7 +67,9 @@ server <- function(input, output, session) {
   callModule(fc_serv, "funcao_consumo")
   callModule(islm_serv, "is_lm")
   callModule(foa_fda_is_serv, "foa_fda_is")
+  callModule(quiz_serv, "quiz")
   callModule(obs_serv, "observatorio")
+  callModule(sobre_serv, "sobre")
 }
 
 shinyApp(ui, server)

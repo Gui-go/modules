@@ -10,18 +10,18 @@ islm_UI <- function(id) {
                                br(),
                                numericInput(ns("ISLMc0_1"), "Consumo Autonomo", min = 0, max = 1000, step = 50, value = 450),
                                numericInput(ns("ISLMc1_1"), "Propensão Marginal a Consumir", min = 0, max = 1, step = 0.1, value = 0.8),
-                               numericInput(ns("ISLMT0_1"), "T0", min = 0, max = 1000, step = 50, value = 300),
-                               numericInput(ns("ISLMI0_1"), "I0", min = 0, max = 1000, step = 50, value = 300),
-                               numericInput(ns("ISLMG0_1"), "G0", min = 0, max = 1000, step = 50, value = 300),
+                               #numericInput(ns("ISLMT0_1"), "T0", min = 0, max = 1000, step = 50, value = 300),
+                               numericInput(ns("ISLMI0_1"), "Investimento autônomo", min = 0, max = 1000, step = 50, value = 300),
+                               numericInput(ns("ISLMG0_1"), "Gastos do governo", min = 0, max = 1000, step = 50, value = 300),
                                numericInput(ns("ISLMa_1"), "a", min = 0, max = 1, step = 0.1, value = 0.1),
-                               numericInput(ns("ISLMt_1"), "t", min = 0, max = 1000, step = 1, value = 3))),
+                               numericInput(ns("ISLMt_1"), "Tributos", min = 0, max = 1, step = 0.1, value = 0.3))),
                tabPanel("LM_1",
                         column(12,
                                br(),
                                br(),
                                br(),
-                               numericInput(ns("ISLMl0_1"), "l0", min = 0, max = 1, step = 0.05, value = 0.9),
-                               numericInput(ns("ISLMl1_1"), "l1", min = 0, max = 1, step = 0.1, value = 0.3),
+                               numericInput(ns("ISLMl0_1"), "Precaução", min = 0, max = 1, step = 0.05, value = 0.9),
+                               numericInput(ns("ISLMl1_1"), "Sensibilidade da taxa de juros a demanda por moeda", min = 0, max = 1, step = 0.1, value = 0.3),
                                numericInput(ns("ISLMms0p_1"), "oferta de moeda", min = 0, max = 1000, step = 50, value = 30),
                                numericInput(ns("ISLMvt_1"), "velocity", min = 0, max = 1000, step = 0.1, value = 0.1))),
                tabPanel("IS_2",
@@ -29,18 +29,18 @@ islm_UI <- function(id) {
                                br(),
                                numericInput(ns("ISLMc0_2"), "Consumo Autonomo", min = 0, max = 1000, step = 50, value = 450),
                                numericInput(ns("ISLMc1_2"), "Propensão Marginal a Consumir", min = 0, max = 1, step = 0.1, value = 0.8),
-                               numericInput(ns("ISLMT0_2"), "T0", min = 0, max = 1000, step = 50, value = 300),
-                               numericInput(ns("ISLMI0_2"), "I0", min = 0, max = 1000, step = 50, value = 300),
-                               numericInput(ns("ISLMG0_2"), "G0", min = 0, max = 1000, step = 50, value = 300),
+                               # numericInput(ns("ISLMT0_2"), "T0", min = 0, max = 1000, step = 50, value = 300),
+                               numericInput(ns("ISLMI0_2"), "Investimento autônomo", min = 0, max = 1000, step = 50, value = 300),
+                               numericInput(ns("ISLMG0_2"), "Gastos do governo", min = 0, max = 1000, step = 50, value = 300),
                                numericInput(ns("ISLMa_2"), "a", min = 0, max = 1, step = 0.1, value = 0.1),
-                               numericInput(ns("ISLMt_2"), "t", min = 0, max = 1000, step = 1, value = 3))),
+                               numericInput(ns("ISLMt_2"), "Tributos", min = 0, max = 1, step = 0.1, value = 0.3))),
                tabPanel("LM_2",
                         column(12,
                                br(),
                                br(),
                                br(),
-                               numericInput(ns("ISLMl0_2"), "l0", min = 0, max = 1, step = 0.05, value = 0.9),
-                               numericInput(ns("ISLMl1_2"), "l1", min = 0, max = 1, step = 0.1, value = 0.3),
+                               numericInput(ns("ISLMl0_2"), "Precaução", min = 0, max = 1, step = 0.05, value = 0.9),
+                               numericInput(ns("ISLMl1_2"), "Sensibilidade da taxa de juros a demanda por moeda", min = 0, max = 1, step = 0.1, value = 0.3),
                                numericInput(ns("ISLMms0p_2"), "oferta de moeda", min = 0, max = 1000, step = 50, value = 30),
                                numericInput(ns("ISLMvt_2"), "velocity", min = 0, max = 1000, step = 0.1, value = 0.1)))
              )),
@@ -89,14 +89,16 @@ islm_serv <- function(input, output, session) {
     y = c(1:2000)
     
     for (i in seq_along(y)) {
-      ISii_1[i] <- ((input$ISLMc0_1 - (input$ISLMc1_1*input$ISLMT0_1) + input$ISLMI0_1 + input$ISLMG0_1) / input$ISLMa_1)-((1-input$ISLMc1_1*(1-input$ISLMt_1))/input$ISLMa_1)*y[i]
+      # ISii_1[i] <- ((input$ISLMc0_1 - (input$ISLMc1_1*input$ISLMT0_1) + input$ISLMI0_1 + input$ISLMG0_1) / input$ISLMa_1)-((1-input$ISLMc1_1*(1-input$ISLMt_1))/input$ISLMa_1)*y[i]
+      ISii_1[i] <- (((input$ISLMc0_1 + input$ISLMI0_1 + input$ISLMG0_1) - (1-input$ISLMc1_1*(1-input$ISLMt_1))*y[i])/input$ISLMa_1)
     }
     for (i in seq_along(y)) {
       LMii_1[i] <- c((1/input$ISLMl1_1)*(input$ISLMl0_1-input$ISLMms0p_1)+(1/input$ISLMl1_1)*(1/input$ISLMvt_1)*y[i])
     }
     
     for (i in seq_along(y)) {
-      ISii_2[i] <- ((input$ISLMc0_2 - (input$ISLMc1_2*input$ISLMT0_2) + input$ISLMI0_2 + input$ISLMG0_2) / input$ISLMa_2)-((1-input$ISLMc1_2*(1-input$ISLMt_2))/input$ISLMa_2)*y[i]
+      # ISii_2[i] <- ((input$ISLMc0_2 - (input$ISLMc1_2*input$ISLMT0_2) + input$ISLMI0_2 + input$ISLMG0_2) / input$ISLMa_2)-((1-input$ISLMc1_2*(1-input$ISLMt_2))/input$ISLMa_2)*y[i]
+      ISii_2[i] <- (((input$ISLMc0_2 + input$ISLMI0_2 + input$ISLMG0_2) - (1-input$ISLMc1_2*(1-input$ISLMt_2))*y[i])/input$ISLMa_2)
     }
     for (i in seq_along(y)) {
       LMii_2[i] <- c((1/input$ISLMl1_2)*(input$ISLMl0_2-input$ISLMms0p_2)+(1/input$ISLMl1_2)*(1/input$ISLMvt_2)*y[i])
