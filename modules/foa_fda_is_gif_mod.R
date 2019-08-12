@@ -97,8 +97,8 @@ foa_fda_is_serv <- function(input, output, session) {
 #   geom_point(aes(x = c(DEP2x), y = DEP2y), size = 5)+
 #   geom_text(aes(c(DEP2x-20), c(DEP2y+45), label = paste("EQ")), parse = TRUE, size = 5)+
 #   geom_text(aes(c(30), c(DEP2y/2.3), label = paste("A")), parse = TRUE, size = 5)+
-#   geom_text(aes(c(300), c(470, 670), label = paste(Ddemand)), parse = TRUE, angle = 17, size = 5)+
-#   geom_text(aes(c(380), c(356), label = paste(Dproduction)), parse = TRUE, angle = 44, size = 5)+
+#   geom_text(aes(c(300), c(490, 690), label = paste(Ddemand)), parse = TRUE, size = 5)+
+#   geom_text(aes(c(420), c(356), label = paste(Dproduction)), parse = TRUE, size = 5)+
 #   theme_minimal()+
 #   labs(title = "Equilíbrio nas funções de Oferta e Demanda Agregada",
 #        y = "Demanda Agregada, Z; Produção Agregada, Y",
@@ -127,11 +127,11 @@ foa_fda_is_serv <- function(input, output, session) {
 #   geom_point(aes(x = c(517, 850), y = c(517, 850)), size = 5)+
 #   geom_text(aes(c(c(517, 850)-20), c(c(517, 850)+45), label = paste("EQ")), parse = TRUE, size = 5)+
 #   geom_text(aes(c(30), c(c(517, 850)/2.3), label = paste("A")), parse = TRUE, size = 5)+
-#   geom_text(aes(c(300), c(470, 670), label = paste("Demanda")), parse = TRUE, angle = 15, size = 5)+
-#   geom_text(aes(c(385), c(356), label = paste("Oferta")), parse = TRUE, angle = 36, size = 5)+
+#   geom_text(aes(c(300), c(490, 690), label = paste("Demanda")), parse = TRUE, size = 5)+
+#   geom_text(aes(c(420), c(356), label = paste("Oferta")), parse = TRUE, size = 5)+
 #   theme_minimal()+
 #   labs(title = "Equilíbrio no mercado de bens\ndado um aumento nos gastos autônomos",
-#        y = "Demanda Agregada, Z; Produção Agregada, Y",
+#        y = "Demanda Agregada, Z; Produto Agregado, Y",
 #        x = "Renda, Y")+
 #   theme(plot.title = element_text(size = 17, face = "bold", hjust = 0.5),
 #         axis.title = element_text(size = 14, face = "bold"),
@@ -184,10 +184,10 @@ foa_fda_is_serv <- function(input, output, session) {
 # 
 # 
 # save_animation(new_gif, "eq_is_fd_fo_gif.gif")
-# 
-# # Tentativa falha
+
+# Tentativa falha
 # gridExtra::grid.arrange(g1,g2, nrow = 2)
-# 
-# # Referencia
-# https://github.com/thomasp85/gganimate/issues/140
+
+# Referencia
+# 8https://github.com/thomasp85/gganimate/issues/140
 
