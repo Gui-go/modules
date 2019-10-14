@@ -11,7 +11,14 @@ fc_UI <- function(id) {
              br(),
              br(),
              numericInput(inputId = ns("C0"),label = "Consumo autônomo", value = 30, min = 1, max = 100, step = 10),
-             numericInput(inputId = ns("C1"), label = "Propensão Marginal a Consumir", value = 0.6, min = 0, max = 1, step = 0.1)),
+             numericInput(inputId = ns("C1"), label = "Propensão Marginal a Consumir", value = 0.6, min = 0, max = 1, step = 0.1),
+             br(),
+             br(),
+             br(),
+             uiOutput(ns("formula")),
+             br(),
+             br()
+             ),
       column(10,
              plotOutput(outputId = ns("FC"), height = "800px")
              )
@@ -21,6 +28,12 @@ fc_UI <- function(id) {
 
 
 fc_serv <- function(input, output, session) {
+  
+  output$formula <- renderUI({
+    h3(strong(withMathJax(paste0("$$C = ", input$C0, " + ", input$C1, "\\times Yd$$"))))
+  })
+  
+  
   output$FC <- renderPlot({
     C = NULL
     C0 = input$C0

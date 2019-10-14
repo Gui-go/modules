@@ -101,7 +101,7 @@ foa_fda_is_serv <- function(input, output, session) {
 #   geom_text(aes(c(420), c(356), label = paste(Dproduction)), parse = TRUE, size = 5)+
 #   theme_minimal()+
 #   labs(title = "Equilíbrio nas funções de Oferta e Demanda Agregada",
-#        y = "Demanda Agregada, Z; Produção Agregada, Y",
+#        y = "Demanda Agregada, Z; Produto Agregado, Y",
 #        x = "Renda, Y",
 #        caption = "Econometria \nIndependente")+
 #   theme(plot.title = element_text(size = 17, face = "bold", hjust = 0.5),
@@ -184,10 +184,10 @@ foa_fda_is_serv <- function(input, output, session) {
 # 
 # 
 # save_animation(new_gif, "eq_is_fd_fo_gif.gif")
-
-# Tentativa falha
-# gridExtra::grid.arrange(g1,g2, nrow = 2)
-
-# Referencia
-# 8https://github.com/thomasp85/gganimate/issues/140
+# 
+# # Tentativa falha
+# # gridExtra::grid.arrange(g1,g2, nrow = 2)
+# 
+# # Referencia
+# # 8https://github.com/thomasp85/gganimate/issues/140
 

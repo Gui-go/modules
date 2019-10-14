@@ -9,16 +9,16 @@ library(tseries)
 library(forecast)
 library(shinydashboard)
 library(shinydashboardPlus)
+library(shinyjs)
 
 source("modules/ap_mod.R", encoding = "utf8")
 source("modules/fc_mod.R", encoding = "utf8")
 source("modules/islm_mod.R", encoding = "utf8")
+# source("modules/fd_mod.R", encoding = "utf8")
 source("modules/foa_fda_is_gif_mod.R", encoding = "utf8")
 source("modules/quiz_mod.R", encoding = "utf8")
 source("modules/obs_mod.R", encoding = "utf8")
 source("modules/sobre_mod.R", encoding = "utf8")
-
-
 
 
 ui <- shinyUI(
@@ -34,7 +34,12 @@ ui <- shinyUI(
        ),
       tabPanel(
         "IS-LM",
-        islm_UI("is_lm")),
+        islm_UI("is_lm")
+        ),
+      # tabPanel(
+      #   "Micro",
+      #   fd_UI("fd")
+      # ),
       tabPanel("Mercado de trabalho"),
       tabPanel("Curva de Philips")
      ),
@@ -67,6 +72,7 @@ ui <- shinyUI(
 server <- function(input, output, session) {
   callModule(fc_serv, "funcao_consumo")
   callModule(islm_serv, "is_lm")
+  # callModule(fd_serv, "Funcao_demanda")
   callModule(foa_fda_is_serv, "foa_fda_is")
   callModule(quiz_serv, "quiz")
   callModule(obs_serv, "observatorio")
